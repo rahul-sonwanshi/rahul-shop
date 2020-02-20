@@ -1,0 +1,35 @@
+<div  *ngIf="product.data.title" class="card">
+    <img *ngIf="product.data.imageUrl" [src]="product.data.imageUrl" class="card-img-top" alt="{{ product.data.title }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ product.data.title }}</h5>
+      <p class="card-text">{{ product.data.price | currency:'&#8377;' }}</p>
+    </div>
+    <div *ngIf="showActions" class="card-footer">
+        <button
+          *ngIf="getQuantity() === 0 else updateQuantity"  
+          (click)="addToCart()"
+          class="btn btn-primary btn-block">Add to Cart
+        </button>
+
+        <ng-template #updateQuantity>
+          <div class="row no-gutters">
+            <div class="col-2">
+              <button 
+                (click)="removeFromCart()"
+                class="btn btn-primary btn-block">-</button>
+            </div>
+            <div class="col text-center">
+              <div>{{ getQuantity() }} in cart</div>
+            </div>
+            <div class="col-2">
+              <button
+                (click)="addToCart()" 
+                class="btn btn-primary btn-block">+</button>
+            </div>
+          </div>
+        </ng-template>
+        
+        <!-- btn-block makes the button acquire all of the space
+             no-gutters removes all unnessary margins from bootstrap -->
+    </div>
+</div>
