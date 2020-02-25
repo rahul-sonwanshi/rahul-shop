@@ -3,8 +3,13 @@
 <div *ngIf="cart" class="col-10">
     <p>
         You have {{ cart.totalItemsCount }} items in your shopping cart.
+
+        <button 
+            *ngIf="cart.totalItemsCount>0"
+            (click)="clearCart()"
+            class="btn btn-light btn-sm">Clear Shopping Cart
+        </button>
     </p>
-    <button mat-button>Click me!</button>
     <div class="mat-elevation-z1">
         <table  mat-table [dataSource]="dataSource" matSort >
 
@@ -57,6 +62,9 @@
     </div>
 
     <button 
-    (click)="clearCart()"
-    class="btn btn-danger btn-sm">Clear Shopping Cart</button>
+        *ngIf="cart.totalItemsCount>0"
+        routerLink="/check-out"
+        class="btn btn-primary">Place Order
+    </button>
+    
 </div>
