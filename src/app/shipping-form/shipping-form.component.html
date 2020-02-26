@@ -1,0 +1,62 @@
+<form #f="ngForm" (ngSubmit)="placeOrder(f.value)">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input #name="ngModel" [(ngModel)]="shipping.name" name="name" id="name" type="text" class="form-control" required>
+        <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+            Name is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address</label>
+        <div class="input-group">
+            <input 
+                #address="ngModel" 
+                [(ngModel)]="shipping.addressLine1" 
+                name="address" 
+                id="address" 
+                type="text" 
+                class="form-control" 
+                placeholder="Address Line 1" required>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+            <div *ngIf="address.errors.required">Address is required.</div>
+        </div>
+        
+    </div>
+
+    <div class="form-group">
+        <input 
+        #addressln2="ngModel" 
+        [(ngModel)]="shipping.addressLine2" 
+        name="addressln2" 
+        id="addressln2" 
+        type="text" 
+        class="form-control" 
+        placeholder="Address Line 2">
+    </div>
+    
+
+    <div class="form-group">
+        <label for="city">City</label>
+        <div class="input-group">
+            <input 
+                #city="ngModel" 
+                [(ngModel)]="shipping.city" 
+                name="city" 
+                id="city" 
+                type="text" 
+                class="form-control" required>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+            <div *ngIf="city.errors.required">City is required.</div>
+        </div>
+        
+    </div>
+
+    <button [disabled]="!f.valid" class="btn btn-primary">Place Order</button>
+    <!-- defualt is type=submit inside a form -->
+    <!-- New padding system px-2 x-axis 2 pixels padding similarly for margins mx-2 -->
+</form>
