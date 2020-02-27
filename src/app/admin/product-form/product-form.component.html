@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <form #f="ngForm" (ngSubmit)="save(f.value)">
             <div class="form-group">
                 <label for="title">Title</label>
@@ -52,7 +52,7 @@
             <!-- New padding system px-2 x-axis 2 pixels padding similarly for margins mx-2 -->
         </form>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <product-card [product]="product" [show-actions]="false"></product-card>
     </div>
 </div>

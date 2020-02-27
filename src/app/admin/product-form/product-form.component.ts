@@ -13,7 +13,15 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductFormComponent implements OnInit {
   categories$;
-  product = {};
+  product = {
+    key: '',
+    data: {
+      title: '',
+      price: 0,
+      category: '',
+      imageUrl: ''
+    }
+  } as Product;
   productId;
 
   constructor(

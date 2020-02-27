@@ -32,7 +32,7 @@ export class ProductService {
       map(item => {           // <== new way of chaining
         let data = item.payload.val();
         let key = item.payload.key;
-        return {key, data};           // or {key, ...data} in case data is Obj
+        return {key, data} as Product;           // or {key, ...data} in case data is Obj
     }));
   }
 
