@@ -1,70 +1,73 @@
-<h1>Shopping Cart</h1>
+<div class="container">
+    <h1>Shopping Cart</h1>
 
-<div *ngIf="cart" class="col-lg-10">
-    <p>
-        You have {{ cart.totalItemsCount }} items in your shopping cart.
+    <div *ngIf="cart" class="col-lg-10">
+        <p>
+            You have {{ cart.totalItemsCount }} items in your shopping cart.
+
+            <button 
+                *ngIf="cart.totalItemsCount>0"
+                (click)="clearCart()"
+                class="btn btn-danger btn-sm">Clear Shopping Cart
+            </button>
+        </p>
+        <div class="mat-elevation-z3" style="margin-bottom: 20px;">
+            <table  mat-table [dataSource]="dataSource" matSort >
+
+                <!-- Product Image Column -->
+                <ng-container matColumnDef="productImage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let cartItem">
+                        <!-- {{ cartItem.product.data.imageUrl }}  -->
+                        <img [src]="cartItem.product.data.imageUrl" class="thumbnail">
+                    </td>
+        
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+            
+                <!-- Product Column -->
+                <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
+                <td mat-cell *matCellDef="let cartItem"> {{cartItem.product.data.title}} </td>
+
+                <td mat-footer-cell *matFooterCellDef>Total</td>
+                </ng-container>
+            
+                <!-- Quantity Column -->
+                <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                <td mat-cell *matCellDef="let cartItem">
+                    <button mat-button><mat-icon (click)="removeFromCart(cartItem)">keyboard_arrow_left</mat-icon></button>
+                    {{cartItem.quantity}}
+                    <button mat-button><mat-icon (click)="addToCart(cartItem)">keyboard_arrow_right</mat-icon></button>
+                </td>
+
+                <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+            
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let cartItem"> {{ cartItem.totalPrice | currency:"&#8377;" }}</td>
+
+                <td mat-footer-cell *matFooterCellDef>{{ cart.totalPrice | currency:"&#8377;" }}</td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
 
         <button 
             *ngIf="cart.totalItemsCount>0"
-            (click)="clearCart()"
-            class="btn btn-light btn-sm">Clear Shopping Cart
+            routerLink="/check-out"
+            class="btn btn-primary">Place Order
         </button>
-    </p>
-    <div class="mat-elevation-z1">
-        <table  mat-table [dataSource]="dataSource" matSort >
-
-            <!-- Product Image Column -->
-            <ng-container matColumnDef="productImage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-                <td mat-cell *matCellDef="let cartItem">
-                    <!-- {{ cartItem.product.data.imageUrl }}  -->
-                    <img [src]="cartItem.product.data.imageUrl" class="thumbnail">
-                </td>
-    
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
         
-            <!-- Product Column -->
-            <ng-container matColumnDef="product">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
-            <td mat-cell *matCellDef="let cartItem"> {{cartItem.product.data.title}} </td>
-
-            <td mat-footer-cell *matFooterCellDef>Total</td>
-            </ng-container>
-        
-            <!-- Quantity Column -->
-            <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef> Quantity </th>
-            <td mat-cell *matCellDef="let cartItem">
-                <button mat-button><mat-icon (click)="removeFromCart(cartItem)">keyboard_arrow_left</mat-icon></button>
-                 {{cartItem.quantity}}
-                 <button mat-button><mat-icon (click)="addToCart(cartItem)">keyboard_arrow_right</mat-icon></button>
-            </td>
-
-            <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-        
-            <!-- Price Column -->
-            <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let cartItem"> {{ cartItem.totalPrice | currency:"&#8377;" }}</td>
-
-            <td mat-footer-cell *matFooterCellDef>{{ cart.totalPrice | currency:"&#8377;" }}</td>
-            </ng-container>
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-
-        </table>
-        
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
 
-    <button 
-        *ngIf="cart.totalItemsCount>0"
-        routerLink="/check-out"
-        class="btn btn-primary">Place Order
-    </button>
-    
 </div>

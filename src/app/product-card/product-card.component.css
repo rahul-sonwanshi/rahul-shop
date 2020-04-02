@@ -1,12 +1,18 @@
 .card {
     margin-bottom: 30px;
-}
-
-.card-footer {
-    padding: 0;
+    margin-left: 20px;
 }
 
 img {
     height: 250px;
     background: cover;
 }
+
+.card-footer {
+    padding: 0;
+}
+
+.row {
+    width: 100%;
+}
+
